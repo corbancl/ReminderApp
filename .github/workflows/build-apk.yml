@@ -4,15 +4,6 @@ on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
-    inputs:
-      build_type:
-        description: 'Build type'
-        required: true
-        default: 'release'
-        type: choice
-        options:
-        - release
-        - debug
 
 jobs:
   build:
@@ -34,6 +25,7 @@ jobs:
         npm install
         cd android
         chmod +x gradlew
+        cd ..
 
     - name: Setup JDK
       uses: actions/setup-java@v4
@@ -50,20 +42,10 @@ jobs:
           -keyalg RSA -keysize 2048 -validity 10000 \
           -dname "CN=Android Debug,O=Android,C=US"
 
-    - name: Cache Gradle packages
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
-
     - name: Build APK
       run: |
         cd android
-        ./gradlew assembleRelease --stacktrace
+        ./gradlew assembleRelease --stacktrace --info
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
@@ -82,5 +64,6 @@ jobs:
         name: Release v${{ github.run_number }}
         draft: false
         prerelease: false
+        generate_release_notes: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
