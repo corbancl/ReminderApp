@@ -1,12 +1,17 @@
 rootProject.name = 'ReminderApp'
 
-// Add local repository for AsyncStorage before native_modules.gradle
-repositories {
-    maven {
-        url '../node_modules/@react-native-async-storage/async-storage/android/local_repo'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url '../node_modules/@react-native-async-storage/async-storage/android/local_repo'
+        }
     }
 }
 
-apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
