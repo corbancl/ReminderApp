@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0A0E27;
+            color: white;
+            padding: 20px;
+        }
+        h1 {
+            color: #6366F1;
+        }
+    </style>
+</head>
+<body>
+    <h1>测试页面</h1>
+    <p>如果您能看到这个页面,说明HTML是正常的。</p>
+    <p id="loading">正在加载React应用...</p>
+    <div id="root"></div>
+    <script>
+        setTimeout(() => {
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.innerHTML = '✅ 页面加载完成,但没有React内容显示';
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
