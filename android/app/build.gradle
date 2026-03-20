@@ -19,7 +19,7 @@ android {
     namespace "com.reminderapp"
     defaultConfig {
         applicationId "com.reminderapp"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 34
         versionCode 1
         versionName "1.0.0"
